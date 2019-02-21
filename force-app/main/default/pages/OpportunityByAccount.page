@@ -1,0 +1,82 @@
+<apex:page controller="OppByAccountController" standardStylesheets="false">
+    <head>
+        <apex:stylesheet value="{!URLFOR($Resource.SLDS212, 'assets/styles/salesforce-lightning-design-system-vf.min.css')}" />
+    </head>
+    <body>
+        <div class="my-company">
+            <apex:form >
+                <!-- PAGE HEADER -->
+                <div class="slds-page-header" role="banner">
+                    <div class="slds-media slds-media--center">
+                        <div class="slds-media__body">
+                            <p class="slds-page-header__title slds-truncate">Mostrar Oportunidades por Conta</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- PAGE HEADER -->
+                <!-- PAGE BODY -->
+                <fieldset class="slds-form--compound">
+                    <div class="form-element__group">
+                        <div class="slds-form-element">
+                            <div class="slds-page-header slds-m-top--xx-large" role="banner">
+                                <div class="slds-media slds-media--center">
+                                    <div class="slds-media__body">
+                                        <p class="slds-page-header__title slds-truncate">Seleccionar Conta</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <apex:outputPanel layout="block">
+                                <apex:dataTable value="{!accounts}" var="account" id="theTable" styleClass="slds-table slds-table--bordered slds-table--cell-buffer" headerClass="slds-text-title--caps">
+                                    <apex:column >
+                                        <apex:facet name="header"><p class="slds-text-body--small page-header__info">Nome da Conta</p> </apex:facet>
+                                        <a onclick="update('{!account.id}')">
+                                            <apex:outputLabel style="cursor:pointer" value="{!account.name}"></apex:outputLabel>
+                                        </a>
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header"><p class="slds-text-body--small page-header__info">Numero de Conta</p> </apex:facet>
+                                        <apex:outputText value="{!account.accountNumber}"/>
+                                    </apex:column>
+                                    <apex:column >
+                                        <apex:facet name="header"><p class="slds-text-body--small page-header__info">Telefone</p> </apex:facet>
+                                        <apex:outputText value="{!account.phone}"/>
+                                    </apex:column>
+                                    <apex:facet name="footer"></apex:facet>
+                                </apex:dataTable>
+                            </apex:outputPanel>
+                            <apex:actionFunction name="update" action="{!updatePanel}" reRender="oppsPanel">
+                                <apex:param name="firstParam" assignTo="{!accountSelected}" value="" />
+                            </apex:actionFunction>
+                        </div>
+                        
+                        <div class="slds-form-element">
+                            <apex:outputPanel id="oppsPanel">
+                                <apex:outputPanel rendered="{!hasSelectedAccount}">
+                                    <div class="slds-page-header slds-m-top--xx-large" role="banner" for="">
+                                        <div class="slds-media slds-media--center">
+                                            <div class="slds-media__body">
+                                                <p class="slds-page-header__title slds-truncate">Oportunidades de {!currentAccount.name}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <apex:dataTable value="{!oppsFromAccount}" var="opp" styleClass="slds-table slds-table--bordered slds-table--cell-buffer" id="theOppTable" headerClass="slds-text-title--caps">
+                                        <apex:column >
+                                            <apex:facet name="header">Nome da Oportunidade</apex:facet>
+                                            <apex:outputLink value="/{!opp.id}">{!opp.name}</apex:outputLink>
+                                        </apex:column>
+                                        <apex:column >
+                                            <apex:facet name="header">Id da Oportunidade</apex:facet>
+                                            <apex:outputText value="{!opp.id}"/>
+                                        </apex:column>
+                                    </apex:dataTable>
+                                </apex:outputPanel>
+                            </apex:outputPanel>  
+                        </div>
+                    </div>
+                </fieldset>
+                
+                <!-- PAGE BODY -->
+            </apex:form>
+        </div>
+    </body>
+</apex:page>

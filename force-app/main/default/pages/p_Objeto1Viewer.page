@@ -1,0 +1,65 @@
+<apex:page controller="c_Objeto1Viewer">
+    
+    <apex:slds />
+    <script>
+    function preServerValidations(){
+        alert("OK");
+        callServer();
+    }
+    
+    function spinnerOn(activated){
+        if(activated){
+            document.getElementById("spinner").style.display = "block";   
+        }else{
+            document.getElementById("spinner").style.display = "none";
+        }
+    }
+    </script>
+    <apex:outputPanel id="finalScripts">
+        <script>
+        function posServerValidations(){
+            console.log("{!helloWorld}");
+        }
+        </script>
+    </apex:outputPanel>
+    <apex:form id="MyForm">
+        <apex:actionFunction action="{!metodo1}" name="callServer" rerender="MyForm, finalScripts" oncomplete="spinnerOn(false);posServerValidations()"/>
+        <p>
+            {!helloWorld}
+        </p>
+        <apex:commandButton id="myBtn" action="{!metodo1}" rerender="MyForm" styleClass="slds-button slds-button_brand" value="Chamar método"/>
+        
+        <a class="slds-button slds-button_neutral" onclick="spinnerOn(true);preServerValidations();">Chamar método</a>
+        
+        <apex:dataTable value="{!objs}" var="acc" styleClass="slds-table slds-table_cell-buffer slds-table_bordered">
+            <apex:column headerValue="Name">
+                {!acc.Name}
+            </apex:column>
+        </apex:dataTable>
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+            	<tr>
+                	<th>
+                        Name
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <apex:repeat value="{!objs}" var="acc">
+                    
+                    <tr>
+                        <td>
+                            {!acc.Name}
+                        </td>
+                    </tr>
+                </apex:repeat>
+            </tbody>
+        </table>
+    </apex:form>
+    <div role="status" class="slds-spinner slds-spinner_medium" style="display:none;position:fixed;" id="spinner">
+        <span class="slds-assistive-text">Loading</span>
+        <div class="slds-spinner__dot-a"></div>
+        <div class="slds-spinner__dot-b"></div>
+    </div>
+    
+</apex:page>

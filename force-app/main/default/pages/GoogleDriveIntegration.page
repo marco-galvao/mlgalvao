@@ -1,0 +1,41 @@
+<!--
+    Purpose         :   Visualforce page for Tour Group Report
+ 
+    Created By      :   Yogesh Gupta
+ 
+    Created Date    :   03/14/2016
+    
+    Revision Logs   :   V_1.0 - Created
+    				
+-->
+<apex:page standardController="Account" extensions="GoogleDriveIntegrationController" id="pageId" title="Custom Report" showHeader="false" sideBar="false">
+    
+	<!-- Apex form starts from here -->
+    <apex:form id="form">
+        <apex:sectionHeader title="Custom Report"/>
+        <apex:pageBlock id="pBd">
+        <apex:pageMessages id="msg"/>
+         
+         	
+            <apex:outPutPanel id="panelId2">     
+                <apex:commandButton action="{!DriveAuth}" value="Download" status="waitMsg"/>
+            </apex:outPutPanel>
+                	
+            
+           <!-- <apex:outputpanel >
+				<apex:actionstatus id="waitMsg"> 
+					<apex:facet name="start">
+                        <div class="waitingSearchDiv" id="el_loading" style="background-color: #fbfbfb; height: 100%; background: rgba(0, 0, 0, 0.5); width: 100%;position:fixed;top:0px;">
+                            <div class="waitingHolder" style="height:25px; width:175px; z-index: 100000;margin:0 auto;position:fixed;left:50%;    top:50%;    margin:-75px 0 0 -135px;border-radius: 5px;background:#ECECE3;padding:10px;text-align: center;vertical-align: middle;border: 1px solid #97CAFF;-moz-box-shadow: 3px 3px 4px #000;-webkit-box-shadow: 3px 3px 4px #000;box-shadow: 3px 3px 4px #000;">
+                                <img class="waitingImage" src="/img/loading.gif" title="Please Wait..." /> <span class="waitingDescription" style="color:black;">
+                                    Please Wait..</span>
+                            </div>
+                        </div>
+                    </apex:facet>
+                </apex:actionstatus>
+            </apex:outputpanel> -->
+        </apex:pageBlock>
+    </apex:form>
+                
+    <!-- End Default Content REMOVE THIS -->
+</apex:page>
